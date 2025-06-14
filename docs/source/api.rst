@@ -6,8 +6,8 @@ This page contains the API reference for SynthX. The library is organized into s
 Models
 ------
 
-CoMA
-~~~~
+VAE
+~~~
 
 .. py:class:: CoMA(config: Optional[Dict] = None)
 
@@ -124,3 +124,36 @@ CoMA
 
       **RETURN TYPE:**
          *Dict[str, float]*
+
+Metrics
+-------
+
+Specificity
+~~~~~~~~~~~
+
+.. py:function:: compute_specificity(virtual_population: List[np.ndarray], real_population: List[np.ndarray], distance_metric: BaseDistance, center: bool = False, normalize: bool = False, **kwargs) -> float
+
+   Compute specificity metric.
+
+   Specificity is defined as the average distance of virtual patients to their nearest neighbors in the real population, as described in "Building 3-D statistical shape models by direct optimization" (Davies et al., 2009). This metric measures how realistic the synthetic samples are by evaluating how well they fit within the real population distribution.
+
+   The specificity metric evaluates the quality of synthetic mesh generation by measuring the distance from each virtual sample to its closest real sample. Lower specificity values indicate that virtual samples are closer to real data, suggesting better generation quality.
+
+   **PARAMETERS:**
+
+   * **virtual_population** (*List[np.ndarray]*) - Virtual/synthetic population data. Each element is a point cloud of shape ``(Ni, 3)``
+   * **real_population** (*List[np.ndarray]*) - Real/reference population data. Each element is a point cloud of shape ``(Mj, 3)``
+   * **distance_metric** (*BaseDistance*) - Distance metric to use for computing nearest neighbors
+   * **center** (*bool*, *optional*) - If ``True``, center each point cloud at origin (default: ``False``)
+   * **normalize** (*bool*, *optional*) - If ``True``, normalize each point cloud to unit sphere (default: ``False``)
+   * **kwargs** - Additional parameters (unused but kept for consistency)
+
+   **RETURN TYPE:**
+      *float*
+
+   Returns the specificity value (average nearest neighbor distance). Lower values indicate better specificity.
+
+   **SHAPES:**
+
+   * **virtual_population**: List of :math:`N_{virtual}` point clouds, each of shape :math:`(N_i, 3)`
+   * **real_population**: List of :math:`N_{real}` point clouds, each of shape :math:`(M_j, 3)`
