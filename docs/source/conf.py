@@ -2,9 +2,9 @@
 
 # -- Project information
 
-project = 'Lumache'
-copyright = '2021, Graziella'
-author = 'Graziella'
+project = 'SynthX'
+copyright = '2025, Haoran'
+author = 'Haoran'
 
 release = '0.1'
 version = '0.1.0'
